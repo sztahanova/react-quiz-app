@@ -3,22 +3,27 @@ import questions from './questions';
 
 export default function App() {
 	const [currentQuestion, setCurrentQuestion] = useState(0);
+	const [showScore, setShowScore] = useState(false);
+	const [score, setScore] = useState(0);
 
-	const handleAnswerButtonClick = () => {
+	const handleAnswerButtonClick = (isCorrect) => {
 		const nextQuestion = currentQuestion + 1;
+		
+		if (isCorrect) {
+			setScore(score + 1);
+		}
 
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
-			alert('you reached the end of the quiz');
+			setShowScore(true);
 		}
 	}
 
 	return (
 		<div className='app'>
-			{/* HINT: replace "false" with logic to display the score when the user has answered all the questions */}
-			{false ? (
-				<div className='score-section'>You scored 1 out of {questions.length}</div>
+			{showScore ? (
+				<div className='score-section'>You scored {score} out of {questions.length}</div>
 			) : (
 					<>
 						<div className='question-section'>
@@ -29,7 +34,7 @@ export default function App() {
 						</div>
 						<div className='answer-section'>
 							{questions[currentQuestion].answerOptions.map((answer) => {
-								return <button onClick={handleAnswerButtonClick}>{answer.answerText}</button>
+								return <button onClick={() => handleAnswerButtonClick(answer.isCorrect)}>{answer.answerText}</button>
 							})}
 						</div>
 					</>
