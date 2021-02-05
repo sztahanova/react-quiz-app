@@ -6,7 +6,7 @@ export default function App() {
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
 
-  const handleAnswerButtonClick = (isCorrect) => {
+  const handleAnswerButtonClick = (isCorrect: boolean) => {
     const nextQuestion = currentQuestion + 1;
 
     if (isCorrect) {
