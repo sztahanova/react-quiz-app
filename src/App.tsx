@@ -1,10 +1,45 @@
-import React, { useState } from "react";
-import questions from "./questions";
+import React, { useCallback, useEffect, useState } from "react";
+import Loading from "./components/LoadingComponent";
+import NoData from "./components/NoDataComponent";
+import Question from "./components/QuestionComponent";
+import Score from "./components/ScoreComponent";
+import { shuffle } from "./utils";
 
-export default function App() {
+type QuizApiResult = {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+};
+
+type QuizApiResponse = {
+  response_code: number;
+  results: QuizApiResult[];
+};
+
+const App = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+  const [questionList, setQuestionList] = useState<QuizApiResult[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => getQuestionList(), []);
+
+  const getQuestionList = useCallback(() => {
+    setLoading(true);
+
+    fetch("https://opentdb.com/api.php?amount=5&type=multiple&encode=url3986")
+      .then((result) => result.json())
+      .then((result) => {
+        if (result.response_code === 0) {
+          setQuestionList(result.results);
+        }
+        setLoading(false);
+      });
+  }, []);
 
   const handleAnswerButtonClick = (isCorrect: boolean) => {
     const nextQuestion = currentQuestion + 1;
@@ -13,42 +48,45 @@ export default function App() {
       setScore(score + 1);
     }
 
-    if (nextQuestion < questions.length) {
+    if (nextQuestion < questionList.length) {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowScore(true);
     }
   };
 
-  return (
-    <div className="app">
-      {showScore ? (
-        <div className="score-section">
-          You scored {score} out of {questions.length}
-        </div>
-      ) : (
-        <>
-          <div className="question-section">
-            <div className="question-count">
-              <span>Question {currentQuestion + 1}</span>/{questions.length}
-            </div>
-            <div className="question-text">
-              {questions[currentQuestion].questionText}
-            </div>
-          </div>
-          <div className="answer-section">
-            {questions[currentQuestion].answerOptions.map((answer) => {
-              return (
-                <button
-                  onClick={() => handleAnswerButtonClick(answer.isCorrect)}
-                >
-                  {answer.answerText}
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
+  const handleNewQuizButtonClick = () => {
+    setShowScore(false);
+    getQuestionList();
+    setCurrentQuestion(0);
+    setScore(0);
+  }
+
+  const finalChild = () => {
+    if (showScore) {
+      return <Score score={score} nrOfQuestions={questionList.length} handleButtonClick={handleNewQuizButtonClick} />;
+    } else if (loading) {
+      return <Loading />;
+    } else if (questionList.length === 0) {
+      return <NoData />;
+    } else {
+      return (
+        <Question
+          currentQuestion={currentQuestion}
+          nrOfQuestions={questionList.length}
+          questionText={questionList[currentQuestion].question}
+          answers={shuffle([
+            questionList[currentQuestion].correct_answer,
+            ...questionList[currentQuestion].incorrect_answers,
+          ])}
+          correctAnswer={questionList[currentQuestion].correct_answer}
+          handleAnswerButtonClick={handleAnswerButtonClick}
+        />
+      );
+    }
+  };
+
+  return <div className="app">{finalChild()}</div>;
+};
+
+export default App;
