@@ -95,6 +95,14 @@ button {
   background-color: #ff3333;
 }
 
+.correct:hover {
+  background-color: #2f922f;
+}
+
+.incorrect:hover {
+  background-color: #ff3333;
+}
+
 button:hover {
   background-color: #555e7d;
 }
