@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Grid, makeStyles, Typography, useTheme } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
 import useQuestionStyles from "./QuestionStyles";
 
 type QuestionProps = {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Container, makeStyles } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { shuffle } from "../../utils";
 import Loading from "../LoadingComponent";
 import NoData from "../NoDataComponent";

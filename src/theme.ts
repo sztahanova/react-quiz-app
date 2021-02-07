@@ -1,25 +1,85 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
+const primary = "#c1d354";
+const secondary = "#34495e";
+const correct = "#2f922f";
+const incorrect = "#ff3333";
+const white = "#ffffff";
+
 const theme = createMuiTheme({
   palette: {
     background: {
-      default: "#c1d354",
+      default: primary,
     },
     primary: {
-      main: "#c1d354",
-      contrastText: "#34495e",
+      main: primary,
+      contrastText: secondary,
     },
     secondary: {
-      main: "#34495e",
+      main: secondary,
+      contrastText: white,
     },
     text: {
-      primary: "#34495e",
+      primary: secondary,
     },
     correct: {
-      main: "#2f922f",
+      main: correct,
     },
     incorrect: {
-      main: "#ff3333",
+      main: incorrect,
+    },
+  },
+  overrides: {
+    MuiButton: {
+      root: {
+        borderWidth: 5,
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        color: white,
+      },
+    },
+    MuiOutlinedInput: {
+      input: {
+        color: white,
+      },
+      root: {
+        "& $notchedOutline": {
+          borderColor: primary,
+        },
+        "&:hover:not($disabled):not($focused):not($error) $notchedOutline": {
+          borderColor: primary,
+          // Reset on touch devices, it doesn't add specificity
+          "@media (hover: none)": {
+            borderColor: primary,
+          },
+        },
+        "&$focused $notchedOutline": {
+          borderColor: primary,
+          borderWidth: 1,
+        },
+      },
+    },
+    // Applied to the <ul> element
+    MuiMenu: {
+      list: {
+        backgroundColor: secondary,
+      },
+    },
+    // Applied to the <li> elements
+    MuiMenuItem: {
+      root: {
+        backgroundColor: secondary,
+      },
+    },
+    MuiSlider: {
+      thumb: {
+        color: primary,
+      },
+      track: {
+        color: primary,
+      },
     },
   },
 });
