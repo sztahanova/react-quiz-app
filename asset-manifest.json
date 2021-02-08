@@ -1,20 +1,27 @@
 {
   "files": {
-    "main.css": "/react-quiz-app/static/css/main.1a35e170.chunk.css",
-    "main.js": "/react-quiz-app/static/js/main.5bf7a6bd.chunk.js",
-    "main.js.map": "/react-quiz-app/static/js/main.5bf7a6bd.chunk.js.map",
+    "main.css": "/react-quiz-app/static/css/main.b8cee056.chunk.css",
+    "main.js": "/react-quiz-app/static/js/main.47e60f58.chunk.js",
+    "main.js.map": "/react-quiz-app/static/js/main.47e60f58.chunk.js.map",
     "runtime-main.js": "/react-quiz-app/static/js/runtime-main.9d2431c4.js",
     "runtime-main.js.map": "/react-quiz-app/static/js/runtime-main.9d2431c4.js.map",
-    "static/js/2.f32f02f4.chunk.js": "/react-quiz-app/static/js/2.f32f02f4.chunk.js",
-    "static/js/2.f32f02f4.chunk.js.map": "/react-quiz-app/static/js/2.f32f02f4.chunk.js.map",
+    "static/css/2.0278c331.chunk.css": "/react-quiz-app/static/css/2.0278c331.chunk.css",
+    "static/js/2.97ca2bee.chunk.js": "/react-quiz-app/static/js/2.97ca2bee.chunk.js",
+    "static/js/2.97ca2bee.chunk.js.map": "/react-quiz-app/static/js/2.97ca2bee.chunk.js.map",
     "index.html": "/react-quiz-app/index.html",
-    "static/css/main.1a35e170.chunk.css.map": "/react-quiz-app/static/css/main.1a35e170.chunk.css.map",
-    "static/js/2.f32f02f4.chunk.js.LICENSE.txt": "/react-quiz-app/static/js/2.f32f02f4.chunk.js.LICENSE.txt"
+    "static/css/2.0278c331.chunk.css.map": "/react-quiz-app/static/css/2.0278c331.chunk.css.map",
+    "static/css/main.b8cee056.chunk.css.map": "/react-quiz-app/static/css/main.b8cee056.chunk.css.map",
+    "static/js/2.97ca2bee.chunk.js.LICENSE.txt": "/react-quiz-app/static/js/2.97ca2bee.chunk.js.LICENSE.txt",
+    "static/media/300.css": "/react-quiz-app/static/media/roboto-vietnamese-300-normal.54344cce.woff2",
+    "static/media/index.css": "/react-quiz-app/static/media/roboto-vietnamese-400-normal.52cebac0.woff2",
+    "static/media/500.css": "/react-quiz-app/static/media/roboto-vietnamese-500-normal.a46e5fcd.woff2",
+    "static/media/700.css": "/react-quiz-app/static/media/roboto-vietnamese-700-normal.cfedd72c.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.9d2431c4.js",
-    "static/js/2.f32f02f4.chunk.js",
-    "static/css/main.1a35e170.chunk.css",
-    "static/js/main.5bf7a6bd.chunk.js"
+    "static/css/2.0278c331.chunk.css",
+    "static/js/2.97ca2bee.chunk.js",
+    "static/css/main.b8cee056.chunk.css",
+    "static/js/main.47e60f58.chunk.js"
   ]
 }
