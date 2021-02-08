@@ -8,12 +8,12 @@ const useScoreStyles = makeStyles({
     justifyContent: "space-between",
   },
   button: {
+    borderWidth: 3,
+
+    "&:hover": {
       borderWidth: 3,
-      
-      "&:hover": {
-        borderWidth: 3,
-      },
-  }
+    },
+  },
 });
 
 export default useScoreStyles;

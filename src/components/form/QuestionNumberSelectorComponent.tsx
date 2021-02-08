@@ -65,7 +65,6 @@ const QuestionNumberSelector = () => {
   }, [selectedCategoryID, selectedDifficulty]);
   useEffect(() => getQuestionCount(), [selectedCategoryID, selectedDifficulty, getQuestionCount]);
 
-
   const handleChangeCommit = (event: React.ChangeEvent<{}>, value: number | number[]) => {
     setNumberOfQuestions(value as number);
   };

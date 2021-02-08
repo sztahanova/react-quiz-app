@@ -3,7 +3,6 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import useQuestionStyles from "./QuestionStyles";
 import { QuestionProps } from "../../types/type";
 
-
 const Question = (props: QuestionProps) => {
   const styles = useQuestionStyles();
 

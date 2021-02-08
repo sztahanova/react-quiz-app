@@ -76,10 +76,10 @@ const theme = createMuiTheme({
     MuiSlider: {
       root: {
         "&$disabled $thumb": {
-          color: 'grey',
+          color: "grey",
         },
         "&$disabled $track": {
-          color: 'grey',
+          color: "grey",
         },
       },
       thumb: {

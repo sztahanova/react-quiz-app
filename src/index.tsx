@@ -15,7 +15,10 @@ import { createStore, Store, applyMiddleware } from "redux";
 import reducer from "./store/reducer";
 import thunk from "redux-thunk";
 
-const store: Store<QuizFormState, QuizFormAction> & { dispatch: DispatchType } = createStore(reducer, applyMiddleware(thunk));
+const store: Store<QuizFormState, QuizFormAction> & { dispatch: DispatchType } = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
 
 ReactDOM.render(
   <React.StrictMode>

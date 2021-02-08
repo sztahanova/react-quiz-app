@@ -37,7 +37,6 @@ type QuestionProps = {
   handleAnswerButtonClick: (isCorrect: boolean) => void;
 };
 
-
 type CategoryQuestionCount = {
   total_question_count: number;
   total_easy_question_count: number;
@@ -54,6 +53,6 @@ type ValueLabelProps = {
   children: React.ReactElement;
   open: boolean;
   value: number;
-}
+};
 
 type Difficulty = "easy" | "medium" | "hard" | "all";

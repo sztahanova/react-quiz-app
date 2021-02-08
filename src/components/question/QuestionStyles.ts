@@ -38,7 +38,7 @@ const useQuestionStyles = makeStyles((theme) => ({
     display: "flex",
     padding: 5,
     justifyContent: "flex-start",
-    textAlign: 'left',
+    textAlign: "left",
     borderWidth: 5,
     cursor: "pointer",
 

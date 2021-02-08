@@ -10,8 +10,6 @@ import { QUIZ_API } from "../../quizApi";
 import { useSelector } from "react-redux";
 import { QuizApiResult, QuizFormState } from "../../types/type";
 
-
-
 const Quiz = () => {
   const styles = useQuizStyles();
 

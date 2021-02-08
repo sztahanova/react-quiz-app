@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { QUIZ_CATEGORY_API } from "../../quizApi";
 import { setCategoryID } from "../../store/actionCreators";
 import { QuizFormState } from "../../types/type";
-import useFormControlStyle from './FormControlStyle';
+import useFormControlStyle from "./FormControlStyle";
 
 type Category = {
   id: number;
@@ -18,7 +18,7 @@ type CategoryResult = {
 const CategorySelector = () => {
   const dispatch = useDispatch();
   const style = useFormControlStyle();
-  
+
   const [loading, setLoading] = useState<boolean>(false);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
 
@@ -44,18 +44,22 @@ const CategorySelector = () => {
   };
 
   return (
-    <FormControl variant='outlined' color='primary' className={style.formControl}>
+    <FormControl variant="outlined" color="primary" className={style.formControl}>
       <InputLabel id="category-selector-label">Category</InputLabel>
       <Select
         labelId="category-selector-label"
         id="category-selector"
-        label='Category'
+        label="Category"
         disabled={loading}
         value={selectedCategoryID === undefined ? "" : selectedCategoryID}
         onChange={handleChange}
       >
         {[AllCategory, ...categoryList].map((category) => {
-          return <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>;
+          return (
+            <MenuItem key={category.id} value={category.id}>
+              {category.name}
+            </MenuItem>
+          );
         })}
       </Select>
     </FormControl>
