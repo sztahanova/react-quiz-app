@@ -6,18 +6,18 @@ import NoData from "../NoDataComponent";
 import Question from "../question/QuestionComponent";
 import Score from "../score/ScoreComponent";
 import useQuizStyles from "./QuizStyles";
+import { QUIZ_API } from "../../quizApi";
+import { useSelector } from "react-redux";
+import { QuizApiResult, QuizFormState } from "../../types/type";
 
-type QuizApiResult = {
-  category: string;
-  type: string;
-  difficulty: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-};
+
 
 const Quiz = () => {
   const styles = useQuizStyles();
+
+  const selectedCategoryID = useSelector((state: QuizFormState) => state.categoryID);
+  const selectedDifficulty = useSelector((state: QuizFormState) => state.difficulty);
+  const questionNumber = useSelector((state: QuizFormState) => state.questionNUmber);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -25,12 +25,17 @@ const Quiz = () => {
   const [questionList, setQuestionList] = useState<QuizApiResult[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => getQuestionList(), []);
-
   const getQuestionList = useCallback(() => {
     setLoading(true);
 
-    fetch("https://opentdb.com/api.php?amount=5&type=multiple&encode=url3986")
+    const baseLink = `${QUIZ_API}?type=multiple&encode=url3986`;
+    const categoryPart = selectedCategoryID === 0 ? "" : `&category=${selectedCategoryID}`;
+    const difficultyPart = selectedDifficulty === "all" ? "" : `&difficulty=${selectedDifficulty}`;
+    const questionNumberPart = `&amount=${questionNumber}`;
+
+    const link = `${baseLink}${categoryPart}${difficultyPart}${questionNumberPart}`;
+
+    fetch(link)
       .then((result) => result.json())
       .then((result) => {
         if (result.response_code === 0) {
@@ -38,7 +43,8 @@ const Quiz = () => {
         }
         setLoading(false);
       });
-  }, []);
+  }, [selectedCategoryID, selectedDifficulty, questionNumber]);
+  useEffect(() => getQuestionList(), [getQuestionList]);
 
   const handleAnswerButtonClick = (isCorrect: boolean) => {
     const nextQuestion = currentQuestion + 1;

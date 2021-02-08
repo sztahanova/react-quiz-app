@@ -1,17 +1,18 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
-import React from "react";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setDifficulty } from "../../store/actionCreators";
+import { Difficulty, QuizFormState } from "../../types/type";
 import useFormControlStyle from "./FormControlStyle";
 
-export type Difficulty = "easy" | "medium" | "hard" | "all";
-
-type DifficultySelectorProps = {
-  selectedDifficulty?: Difficulty;
-  setSelectedDifficulty: (difficulty: Difficulty) => void;
-};
-
-const DifficultySelector = (props: DifficultySelectorProps) => {
+const DifficultySelector = () => {
+  const dispatch = useDispatch();
   const style = useFormControlStyle();
-  const { selectedDifficulty, setSelectedDifficulty } = props;
+
+  const selectedDifficulty = useSelector((state: QuizFormState) => state.difficulty);
+  const setSelectedDifficulty = useCallback((difficulty: Difficulty) => dispatch(setDifficulty(difficulty)), [
+    dispatch,
+  ]);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedDifficulty(event.target.value as Difficulty);

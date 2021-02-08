@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-const useScoreStyles = makeStyles((theme) => ({
+const useScoreStyles = makeStyles({
   score: {
     display: "flex",
     alignItems: "center",
@@ -14,6 +14,6 @@ const useScoreStyles = makeStyles((theme) => ({
         borderWidth: 3,
       },
   }
-}));
+});
 
 export default useScoreStyles;

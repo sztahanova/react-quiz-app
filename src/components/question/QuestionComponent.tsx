@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 import useQuestionStyles from "./QuestionStyles";
+import { QuestionProps } from "../../types/type";
 
-type QuestionProps = {
-  currentQuestion: number;
-  nrOfQuestions: number;
-  questionText: string;
-  answers: string[];
-  correctAnswer: string;
-  handleAnswerButtonClick: (isCorrect: boolean) => void;
-};
 
 const Question = (props: QuestionProps) => {
   const styles = useQuestionStyles();
@@ -23,7 +16,7 @@ const Question = (props: QuestionProps) => {
       setDisableButtons(true);
       setSelectedAnswer(answer);
       setApplyCustomClass(true);
-  
+
       setTimeout(() => {
         props.handleAnswerButtonClick(props.correctAnswer === answer);
         setSelectedAnswer(undefined);
@@ -70,7 +63,7 @@ const Question = (props: QuestionProps) => {
       <Grid item sm={5} className={styles.answerContainer}>
         {props.answers.map((answer) => {
           return (
-            <Grid item>
+            <Grid item key={answer}>
               <Button
                 variant="outlined"
                 color="primary"

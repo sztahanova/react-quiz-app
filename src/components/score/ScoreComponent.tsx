@@ -1,15 +1,16 @@
 import { Button, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { ScoreProps } from "../../types/type";
 import useScoreStyles from "./ScoreStyles";
 
-type ScoreProps = {
-  score: number;
-  nrOfQuestions: number;
-  handleButtonClick: () => void;
-};
-
 const Score = (props: ScoreProps) => {
+  const history = useHistory();
   const styles = useScoreStyles();
-  const { score, nrOfQuestions, handleButtonClick } = props;
+  const { score, nrOfQuestions } = props;
+
+  const handleClick = () => {
+    history.push("/react-quiz-app/");
+  };
 
   return (
     <div className={styles.score}>
@@ -23,7 +24,7 @@ const Score = (props: ScoreProps) => {
       <Typography variant="h3" gutterBottom>
         {nrOfQuestions}
       </Typography>
-      <Button variant="outlined" color="primary" className={styles.button} onClick={() => handleButtonClick()}>
+      <Button variant="outlined" color="primary" className={styles.button} onClick={handleClick}>
         New quiz
       </Button>
     </div>

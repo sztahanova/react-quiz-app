@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core";
 const useQuestionStyles = makeStyles((theme) => ({
   question: {
     gap: 10,
-    minWidth: 200,
+    minWidth: 250,
   },
   questionCount: {
     color: "grey",
@@ -26,7 +26,7 @@ const useQuestionStyles = makeStyles((theme) => ({
     gap: 10,
     margin: "auto",
     width: "100%",
-    minWidth: 150,
+    minWidth: 250,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",

@@ -1,32 +1,9 @@
-import { FormControl, InputLabel, Slider, Tooltip, Typography } from "@material-ui/core";
+import { FormControl, InputLabel, Slider, Tooltip } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { QUIZ_QUESTION_COUNT_BY_CATEGORY_API, QUIZ_TOTAL_QUESTION_COUNT_API } from "../../quizApi";
-import { Difficulty } from "./DifficultySelectorComponent";
-
-type CategoryQuestionCount = {
-  total_question_count: number;
-  total_easy_question_count: number;
-  total_medium_question_count: number;
-  total_hard_question_count: number;
-};
-
-type QuestionCountByCategoryResponse = {
-  category_id: number;
-  category_question_count: CategoryQuestionCount;
-};
-
-type QuestionNumberSelectorProps = {
-  selectedCategoryID: number;
-  selectedDifficulty: Difficulty;
-  questionNumber: number;
-  setQuestionNumber: (questionNumber: number) => void;
-};
-
-interface ValueLabelProps {
-  children: React.ReactElement;
-  open: boolean;
-  value: number;
-}
+import { setQuestionNumber } from "../../store/actionCreators";
+import { QuestionCountByCategoryResponse, QuizFormState, ValueLabelProps } from "../../types/type";
 
 const ValueLabelComponent = (props: ValueLabelProps) => {
   const { children, open, value } = props;
@@ -38,23 +15,33 @@ const ValueLabelComponent = (props: ValueLabelProps) => {
   );
 };
 
-const QuestionNumberSelector = (props: QuestionNumberSelectorProps) => {
-  const { selectedCategoryID, selectedDifficulty, questionNumber, setQuestionNumber } = props;
+const QuestionNumberSelector = () => {
+  const dispatch = useDispatch();
+
+  const selectedCategoryID = useSelector((state: QuizFormState) => state.categoryID);
+  const selectedDifficulty = useSelector((state: QuizFormState) => state.difficulty);
+
+  const setNumberOfQuestions = useCallback((questionNumber: number) => dispatch(setQuestionNumber(questionNumber)), [
+    dispatch,
+  ]);
+
+  const [loading, setLoading] = useState<boolean>(false);
   const [maxQuestionCount, setMaxQuestionCount] = useState<number>(50);
 
-  useEffect(() => getQuestionCount(), [selectedCategoryID, selectedDifficulty]);
-
   const getQuestionCount = useCallback(() => {
+    setLoading(true);
+
     if (selectedCategoryID === 0) {
       fetch(QUIZ_TOTAL_QUESTION_COUNT_API)
         .then((res) => res.json())
         .then((res) => {
           const count = res.overall.total_num_of_verified_questions;
           setMaxQuestionCount(Math.min(count, 50));
+          setLoading(false);
         });
     } else {
       let count;
-      fetch(QUIZ_QUESTION_COUNT_BY_CATEGORY_API(selectedCategoryID))
+      fetch(`${QUIZ_QUESTION_COUNT_BY_CATEGORY_API}${selectedCategoryID}`)
         .then((res) => res.json())
         .then((res: QuestionCountByCategoryResponse) => {
           switch (selectedDifficulty) {
@@ -72,12 +59,15 @@ const QuestionNumberSelector = (props: QuestionNumberSelectorProps) => {
               break;
           }
           setMaxQuestionCount(Math.min(count, 50));
+          setLoading(false);
         });
     }
   }, [selectedCategoryID, selectedDifficulty]);
+  useEffect(() => getQuestionCount(), [selectedCategoryID, selectedDifficulty, getQuestionCount]);
+
 
   const handleChangeCommit = (event: React.ChangeEvent<{}>, value: number | number[]) => {
-    setQuestionNumber(value as number);
+    setNumberOfQuestions(value as number);
   };
 
   return (
@@ -91,6 +81,7 @@ const QuestionNumberSelector = (props: QuestionNumberSelectorProps) => {
         min={1}
         max={maxQuestionCount}
         onChangeCommitted={handleChangeCommit}
+        disabled={loading}
       />
     </FormControl>
   );
